@@ -1,0 +1,48 @@
+{
+  "name": "@glair/vision",
+  "license": "MIT",
+  "version": "0.0.1-beta.0",
+  "description": "GLAIR Vision Node.js SDK",
+  "keywords": [
+    "glair",
+    "vision",
+    "ocr",
+    "face biometric",
+    "ekyc",
+    "planogram",
+    "paperless"
+  ],
+  "homepage": "https://github.com/glair-ai/glair-vision-node#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/glair-ai/glair-vision-node.git"
+  },
+  "type": "module",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "exports": {
+    ".": {
+      "require": "./lib/index.cjs",
+      "import": "./lib/index.js"
+    }
+  },
+  "types": "./lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "clean": "rm -rf ./lib",
+    "build": "npm run clean && tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.3",
+    "vite": "^4.2.0"
+  },
+  "dependencies": {
+    "form-data-encoder": "^2.1.4",
+    "formdata-node": "^5.0.0",
+    "node-fetch": "^3.3.1"
+  }
+}
