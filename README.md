@@ -12,6 +12,10 @@
   GLAIR Vision Node.js SDK
 <p>
 
+# Requirement
+
+Node version 18 or higher.
+
 # Basic Usage
 
 TBD
