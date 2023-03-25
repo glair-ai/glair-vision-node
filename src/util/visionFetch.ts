@@ -1,4 +1,5 @@
 import { Config } from "../api/config";
+import { logDebug } from "./logger";
 
 export const visionFetch = async (
   config: Config,
@@ -6,6 +7,7 @@ export const visionFetch = async (
   overrides?: RequestInit
 ) => {
   const url = config.getUrl(path);
+  logDebug("URL", { url });
 
   const fetchConfig = {
     ...overrides,
@@ -13,9 +15,15 @@ export const visionFetch = async (
       ...overrides?.headers,
       Authorization: config.getBasicAuth(),
       "x-api-key": config.apiKey,
+      "GLAIR-Vision-Nodejs-SDK-Version": "0.0.1-beta.1",
     },
     method: overrides?.method || "GET",
   };
 
-  return await fetch(url, fetchConfig);
+  const resp = await fetch(url, fetchConfig);
+  const respObj = await resp.json();
+  if (resp.ok) {
+    return respObj;
+  }
+  throw respObj;
 };

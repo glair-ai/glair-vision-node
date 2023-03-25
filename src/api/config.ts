@@ -34,7 +34,8 @@ export class Config {
 
   getBasicAuth() {
     if (!this.basicAuth) {
-      return `Basic ${btoa(this.username + ":" + this.password)}`;
+      const buff = Buffer.from(`${this.username}:${this.password}`);
+      return `Basic ${buff.toString("base64")}`;
     }
     return this.basicAuth;
   }

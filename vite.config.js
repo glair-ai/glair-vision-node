@@ -19,7 +19,7 @@ export default defineConfig({
       // Module build failed: UnhandledSchemeError: Reading from "node:fs" is not handled by plugins (Unhandled scheme).
       // Webpack supports "data:" and "file:" URIs by default.
       // You may need an additional plugin to handle "node:" URIs.
-      external: ["node:fs", "node:path"],
+      external: ["node:fs", "node:path", "fs"],
     },
     minify: false,
   },

@@ -21,6 +21,18 @@ export const logDebug = (message: string, ...args: unknown[]) => {
   logger.debug(message, args);
 };
 
+export function logInfo(message: string, ...args: unknown[]): void {
+  logger.info(message, args);
+}
+
+export function logWarn(message: string, ...args: unknown[]): void {
+  logger.warn(message, args);
+}
+
+export function logError(message: string, ...args: unknown[]): void {
+  logger.error(message, args);
+}
+
 class Logger {
   private _logLevel = LogLevel.INFO; // default to INFO
 
@@ -36,6 +48,18 @@ class Logger {
     this._log(LogLevel.DEBUG, ...args);
   }
 
+  info(...args: unknown[]): void {
+    this._log(LogLevel.INFO, ...args);
+  }
+
+  warn(...args: unknown[]): void {
+    this._log(LogLevel.WARN, ...args);
+  }
+
+  error(...args: unknown[]): void {
+    this._log(LogLevel.ERROR, ...args);
+  }
+
   private _log(logLevel: LogLevel, ...args: unknown[]) {
     if (logLevel < this._logLevel) return;
 
@@ -43,7 +67,7 @@ class Logger {
     const method = logLevelMapping[logLevel as keyof typeof logLevelMapping];
 
     console[method as "log" | "info" | "warn" | "error"](
-      `[${now}] Vision SDK:`,
+      `[${now}] GLAIR Vision SDK:`,
       ...args.map(this._stringify)
     );
   }
