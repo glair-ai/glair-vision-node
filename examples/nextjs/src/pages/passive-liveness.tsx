@@ -9,12 +9,10 @@ export default function PassiveLiveness() {
   const [result, setResult] = useState(null);
 
   const handleClick = async () => {
+    if (!webcam.current || !webcam.current.screenshot) return;
+
     setLoading(true);
-
-    if (!webcam.current) return;
-    const base64Sshot = await webcam.current.screenshot?.();
-    if (!base64Sshot) return;
-
+    const base64Sshot = await webcam.current.screenshot();
     const fetchSshot = await fetch(base64Sshot);
     const blob = await fetchSshot.blob();
 
@@ -83,5 +81,3 @@ const Container: React.FC<Props> = ({ children }) => {
     </main>
   );
 };
-
-const TakePhoto = () => {};

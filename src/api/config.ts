@@ -40,8 +40,15 @@ export class Config {
     return this.basicAuth;
   }
 
-  getConfig(newConfig?: Settings) {
-    return newConfig ? new Config(newConfig) : this;
+  getConfig(newConfig?: Partial<Settings>) {
+    if (!newConfig) return this;
+
+    const baseUrl = newConfig.baseUrl ?? this.baseUrl;
+    const apiVersion = newConfig.apiVersion ?? this.apiVersion;
+    const apiKey = newConfig.apiKey ?? this.apiKey;
+    const username = newConfig.username ?? this.username;
+    const password = newConfig.password ?? this.password;
+    return new Config({ baseUrl, apiVersion, apiKey, username, password });
   }
 
   private replaceVersion(path: string) {

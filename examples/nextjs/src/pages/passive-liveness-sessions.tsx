@@ -1,20 +1,11 @@
 import { vision } from "@/util/vision";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Link from "next/link";
-import React, { useState } from "react";
 
 export default function PassiveLivenessSessions({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const [message, setMessage] = useState();
-
-  console.log({ data });
-
-  if (data.status === "PENDING") {
-    return <Container>Pending</Container>;
-  }
-
-  if (data.status === "FINISHED") {
+  if (data.status === "FINISHED" || data.status == "PENDING") {
     return (
       <Container>
         <pre>{JSON.stringify(data, null, 2)}</pre>
