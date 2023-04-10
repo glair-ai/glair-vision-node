@@ -73,6 +73,22 @@ const visionConfig: Settings = {
 | `username`   | `default-username`            | Your username                       |
 | `password`   | `default-password`            | Your password                       |
 
+## Override Configuration
+
+You can override the configuration values for one-time only:
+
+```ts
+const resp = await vision.ocr
+  .ktp(
+    { image: "/path/to/image.jpg" },
+    { apiKey: "xxx", username: "yyy", password: "passwd" }
+  )
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+The second parameter is `Partial<Settings>` (same as `Settings` but all optional). It will be merged with the original `Settings` you set when instantiating the Vision instance.
+
 ## Usage with TypeScript
 
 GLAIR Vision Node.js SDK is packaged with TypeScript declarations. You don't need to install another package.

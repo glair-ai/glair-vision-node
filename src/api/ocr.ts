@@ -8,7 +8,7 @@ type KtpParam = { image: string; wa?: string };
 export class Ocr {
   constructor(private readonly config: Config) {}
 
-  async ktp(param: KtpParam, newConfig?: Settings) {
+  async ktp(param: KtpParam, newConfig?: Partial<Settings>) {
     logInfo("KTP", { param });
     const { image } = param;
 
