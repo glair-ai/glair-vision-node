@@ -14,11 +14,7 @@ export default function PassiveLivenessSessions({
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <Link href="/">Back</Link>
-      </div>
-
+    <Container>
       <form action="/api/pl-session" method="POST">
         <button
           className="rounded-lg border px-5 py-4 transition-colors border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
@@ -27,7 +23,7 @@ export default function PassiveLivenessSessions({
           Perform Passive Liveness via session
         </button>
       </form>
-    </main>
+    </Container>
   );
 }
 
@@ -39,7 +35,12 @@ const Container: React.FC<Props> = ({ children }) => {
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <Link href="/">Back</Link>
+        <Link
+          href="/"
+          className="rounded-lg border p-3 transition-colors border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+        >
+          Back
+        </Link>
       </div>
       {children}
     </main>

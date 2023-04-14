@@ -61,7 +61,7 @@ export default function Home() {
               Passive Liveness <span>-&gt;</span>
             </h2>
             <p
-              className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
+              className={`${inter.className} m-auto lg:m-0 max-w-[30ch] text-sm opacity-50`}
             >
               Sample demo to integrate passive liveness detection using GLAIR
               Web Components and GLAIR Vision NodeJS SDK.
@@ -76,7 +76,7 @@ export default function Home() {
               Passive Liveness Sessions<span>-&gt;</span>
             </h2>
             <p
-              className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
+              className={`${inter.className} m-auto lg:m-0 max-w-[30ch] text-sm opacity-50`}
             >
               Sample demo to integrate passive liveness detection using Passive
               Liveness Sessions.
