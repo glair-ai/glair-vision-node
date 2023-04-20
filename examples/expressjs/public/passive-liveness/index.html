@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Passive Liveness Example</title>
+    <link rel="stylesheet" href="../index.css" />
+  </head>
+  <body>
+    <div id="webcam-wrapper">
+      <glair-webcam mirrored></glair-webcam>
+      <div id="instruction">
+        <p style="font-weight: bold">Take photo</p>
+        <button id="sshot-btn"></button>
+        <p>Make sure your face is clearly visible on the marked area</p>
+      </div>
+    </div>
+  </body>
+
+  <!-- <script
+    type="module"
+    src="https://unpkg.com/@glair/web-components/standalone/webcam.js"
+  ></script> -->
+  <script type="module" src="../webcam.js"></script>
+  <script>
+    const glairWebcam = document.querySelector("glair-webcam");
+    const btn = document.querySelector("#sshot-btn");
+
+    btn.addEventListener("click", async () => {
+      const base64sshot = await glairWebcam.screenshot();
+      const fetchSshot = await fetch(base64sshot);
+      const blob = await fetchSshot.blob();
+
+      const formdata = new FormData();
+      formdata.append("image", blob);
+
+      // console.log(base64sshot, blob);
+
+      // Send the blob to your backend server
+      // Then, your backend server can send it to GLAIR Vision's API
+      const response = await fetch("/api", {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      });
+      const data = await response.json();
+      console.log(data);
+    });
+  </script>
+</html>
