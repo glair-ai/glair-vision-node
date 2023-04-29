@@ -19,7 +19,7 @@
 
 ## Requirement
 
-Node version 18 or higher.
+You need <span style="color: green">**Node version 18 or higher**</span>. For local development, we recommend to use [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm).
 
 ## Installation
 
@@ -127,6 +127,11 @@ export default async function handler(
   res.status(200).json(resp);
 }
 ```
+
+## FAQ
+
+1. I got `ReferenceError: FormData is not defined` error. What should I do?
+   - Make sure you use Node version 18 or higher.
 
 ---
 
