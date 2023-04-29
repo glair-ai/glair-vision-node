@@ -21,7 +21,3 @@ pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Notes
-
-If you are working on a TypeScript project, it is important to define a GLAIR Component. You can achieve this by using the `declare global` keyword in your project. A good example of this can be found in the [types.d.ts](src/components/types.d.ts) file located inside the `src/components` directory. This file is used to specify types for the various components in your project.

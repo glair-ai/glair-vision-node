@@ -19,9 +19,7 @@
 
 ## Requirement
 
-You need <span style="color: green">**Node version 18 or higher**</span>. If your current Node version is lower than 18, you can download the latest version from the official [Node website](https://nodejs.org/en/download).
-
-To avoid errors when creating the `FormData` that needs to be sent to the API, it is necessary to make sure that the version of your Node environment is at least 18.
+You need <span style="color: green">**Node version 18 or higher**</span>. For local development, we recommend to use [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm).
 
 ## Installation
 
@@ -129,6 +127,11 @@ export default async function handler(
   res.status(200).json(resp);
 }
 ```
+
+## FAQ
+
+1. I got `ReferenceError: FormData is not defined` error. What should I do?
+   - Make sure you use Node version 18 or higher.
 
 ---
 
