@@ -254,7 +254,7 @@ console.log(resp);
 ### Basic Verification
 
 ```ts
-const resp = await vision.identify
+const resp = await vision.identity
   .verification({
     nik: "1234567890123456",
     name: "John Doe",
@@ -267,7 +267,7 @@ console.log(resp);
 ### Face Verification
 
 ```ts
-const resp = await vision.identify
+const resp = await vision.identity
   .faceVerification({
     nik: "1234567890123456",
     name: "John Doe",
