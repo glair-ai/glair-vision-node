@@ -18,7 +18,7 @@ export class PassiveLivenesSessions {
     param: PassiveLivenesSessionsCreateParam,
     newConfig?: Partial<Settings>
   ) {
-    logInfo("Passive Liveness Sessions Create", { param });
+    logInfo("Passive Liveness Sessions - Create", { param });
     const { success_url, cancel_url } = param;
 
     const req: RequestInit = {
@@ -32,14 +32,13 @@ export class PassiveLivenesSessions {
     console.log(req);
     const config = this.config.getConfig(newConfig);
     return visionFetch(config, "face/:version/passive-liveness-sessions", req);
-    // return visionFetch(config, "api/passive-liveness-sessions", req);
   }
 
   async retrieve(
     param: PassiveLivenesSessionsRetrieveParam,
     newConfig?: Partial<Settings>
   ) {
-    logInfo("Passive Liveness Sessions Retrieve", { param });
+    logInfo("Passive Liveness Sessions - Retrieve", { param });
     const { sid } = param;
 
     const req = {

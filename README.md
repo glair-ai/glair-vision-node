@@ -36,11 +36,7 @@ The package needs to be configured with your credentials, see [here](https://doc
 ```ts
 import { Vision } from "@glair/vision";
 
-const vision = new Vision({
-  apiKey: "api-key",
-  username: "username",
-  password: "password",
-});
+const vision = new Vision({ apiKey: "api-key", username: "username", password: "password" });
 ```
 
 Afterwards, you can use the provided functions to access GLAIR Vision API:
@@ -48,6 +44,7 @@ Afterwards, you can use the provided functions to access GLAIR Vision API:
 1. [OCR](#ocr)
 2. [Face Biometric](#face-biometric)
 3. [Session](#session)
+4. [Identity](#identity)
 
 ## Configuration
 
@@ -103,11 +100,7 @@ Instantiate a Vision instance in a file and export it.
 // util/vision.ts
 import { Vision } from "@glair/vision";
 
-export const vision = new Vision({
-  apiKey: "api-key",
-  username: "username",
-  password: "password",
-});
+const vision = new Vision({ apiKey: "api-key", username: "username", password: "password" });
 ```
 
 Then you can use the `vision` object in server-side NextJS.
@@ -234,4 +227,53 @@ console.log(resp);
 
 ### Active Liveness Sessions
 
-_in development_.
+Create session
+
+```ts
+const resp = await vision.faceBio.activeLivenessSessions
+  .create({
+    success_url: "https://docs.glair.ai?success=true",
+    cancel_url: "https://docs.glair.ai?success=false",
+    number_of_gesture: 3,
+  })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+Retrieve Session
+
+```ts
+const resp = await vision.faceBio.activeLivenessSessions
+  .retrieve({ sid: "session-id" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+## Identity
+
+### Basic Verification
+
+```ts
+const resp = await vision.identify
+  .verification({
+    nik: "1234567890123456",
+    name: "John Doe",
+    date_of_birth: "01-01-2000",
+  })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+### Face Verification
+
+```ts
+const resp = await vision.identify
+  .faceVerification({
+    nik: "1234567890123456",
+    name: "John Doe",
+    date_of_birth: "01-01-2000",
+    face_of_image: "/path/to/image.jpg",
+  })
+  .catch((err) => console.error(err));
+console.log(resp);
+```

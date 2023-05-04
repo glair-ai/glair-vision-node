@@ -20,7 +20,7 @@ export class FaceBio {
   }
 
   async match(param: MatchParam, newConfig?: Partial<Settings>) {
-    logInfo("Face Match", { param });
+    logInfo("Face Biometric - Match", { param });
     const { captured, stored } = param;
 
     const data = {
@@ -41,7 +41,7 @@ export class FaceBio {
     param: PassiveLivenessParam,
     newConfig?: Partial<Settings>
   ) {
-    logInfo("Passive Liveness", { param });
+    logInfo("Face Biometric - Passive Liveness", { param });
     const { image } = param;
 
     const formData = new FormData();
@@ -60,7 +60,7 @@ export class FaceBio {
     param: ActiveLivenessParam,
     newConfig?: Partial<Settings>
   ) {
-    logInfo("Active Liveness", { param });
+    logInfo("Face Biometric - Active Liveness", { param });
     const { image, gestureCode } = param;
 
     const formData = new FormData();

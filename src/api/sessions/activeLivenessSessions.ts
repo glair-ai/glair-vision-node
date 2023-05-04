@@ -19,7 +19,7 @@ export class ActiveLivenesSessions {
     param: ActiveLivenesSessionsCreateParam,
     newConfig?: Partial<Settings>
   ) {
-    logInfo("Active Liveness Sessions Create", { param });
+    logInfo("Active Liveness Sessions - Create", { param });
     const { success_url, cancel_url, number_of_gestures } = param;
 
     const req: RequestInit = {
@@ -39,7 +39,7 @@ export class ActiveLivenesSessions {
     param: ActiveLivenesSessionsRetrieveParam,
     newConfig?: Partial<Settings>
   ) {
-    logInfo("Active Liveness Sessions Retrieve", { param });
+    logInfo("Active Liveness Sessions - Retrieve", { param });
     const { sid } = param;
 
     const req = {
