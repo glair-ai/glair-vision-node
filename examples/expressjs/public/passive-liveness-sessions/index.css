@@ -1,0 +1,11 @@
+#back {
+  display: block;
+  margin-left: 5rem;
+  margin-top: 1rem;
+}
+
+#container {
+  max-width: 350px;
+  margin: 2rem auto;
+  text-align: center;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Passive Liveness Session</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <a href="/" id="back">
+      <button>Back</button>
+    </a>
+    <div id="container">
+      <h2>Create Passive Liveness Session</h2>
+      <button id="create-session-btn">Click To Create</button>
+    </div>
+    <a id="pwp"></a>
+  </body>
+  <script>
+    const btn = document.querySelector("#create-session-btn");
+
+    btn.addEventListener("click", async () => {
+      const response = await fetch("/pl-sessions", {
+        method: "POST",
+        redirect: "follow",
+      });
+      const data = await response.json();
+      console.log(data);
+    });
+  </script>
+</html>

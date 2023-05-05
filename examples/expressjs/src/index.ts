@@ -24,11 +24,7 @@ const port = process.env.PORT ?? 8000;
 app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.urlencoded({ extended: false }));
 
-app.post("/api", async (req: Request, res: Response) => {
-  // const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
-  // const data = await response.json();
-  // res.json(data);
-
+app.post("/pl", async (req: Request, res: Response) => {
   const form = formidable({ multiples: true });
   const parse = (): Promise<any> => {
     return new Promise((resolve, reject) => {
@@ -55,6 +51,26 @@ app.post("/api", async (req: Request, res: Response) => {
     return;
   }
   res.status(200).json(response);
+});
+
+app.post("/pl-sessions", async (req: Request, res: Response) => {
+  let error = null;
+
+  const session = await vision.faceBio.passiveLivenessSessions
+    .create({
+      success_url:
+        "http://localhost:3000/passive-liveness-sessions?success=true",
+      cancel_url:
+        "http://localhost:3000/passive-liveness-sessions?canceled=true",
+    })
+    .catch((err) => (error = err));
+
+  if (error) {
+    res.status(400).json(error);
+    return;
+  }
+
+  res.redirect(303, session.url);
 });
 
 app.listen(port, () => {

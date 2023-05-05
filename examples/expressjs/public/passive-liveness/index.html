@@ -2,12 +2,15 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Passive Liveness Example</title>
-    <link rel="stylesheet" href="../index.css" />
+    <title>Passive Liveness</title>
+    <link rel="stylesheet" href="index.css" />
   </head>
   <body>
+    <a href="/" id="back">
+      <button>Back</button>
+    </a>
     <div id="webcam-wrapper">
-      <glair-webcam mirrored></glair-webcam>
+      <glair-webcam mirrored width="300" height="300"></glair-webcam>
       <div id="instruction">
         <p style="font-weight: bold">Take photo</p>
         <button id="sshot-btn"></button>
@@ -35,9 +38,7 @@
 
       // console.log(base64sshot, blob);
 
-      // Send the blob to your backend server
-      // Then, your backend server can send it to GLAIR Vision's API
-      const response = await fetch("/api", {
+      const response = await fetch("/pl", {
         method: "POST",
         body: formdata,
         redirect: "follow",
