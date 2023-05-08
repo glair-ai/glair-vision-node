@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@glair/vision": "^0.0.1-beta.2",
+    "@glair/vision": "^0.0.1-beta.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "formidable": "^3.2.5"

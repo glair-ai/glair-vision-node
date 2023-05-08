@@ -23,7 +23,16 @@
 }
 
 #back {
-  display: block;
+  display: inline-block;
   margin-left: 5rem;
   margin-top: 1rem;
+}
+
+#back button {
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 20%;
+  border: 1px solid black;
+  background-color: black;
+  color: white;
 }

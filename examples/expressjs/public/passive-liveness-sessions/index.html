@@ -11,20 +11,31 @@
     </a>
     <div id="container">
       <h2>Create Passive Liveness Session</h2>
-      <button id="create-session-btn">Click To Create</button>
+      <div id="state">
+        <button id="create-session-btn">Click To Create</button>
+      </div>
     </div>
-    <a id="pwp"></a>
   </body>
   <script>
     const btn = document.querySelector("#create-session-btn");
+    const state = document.querySelector("#state");
 
     btn.addEventListener("click", async () => {
+      const loadingNode = document.createTextNode("Loading...");
+      state.removeChild(state.children[0]);
+      state.appendChild(loadingNode);
+
       const response = await fetch("/pl-sessions", {
         method: "POST",
-        redirect: "follow",
       });
       const data = await response.json();
-      console.log(data);
+
+      const textNode = document.createTextNode("Go To PWP");
+      const anchorNode = document.createElement("a");
+      state.childNodes[state.childNodes.length - 1].data = "";
+      anchorNode.appendChild(textNode);
+      anchorNode.setAttribute("href", data.url);
+      state.appendChild(anchorNode);
     });
   </script>
 </html>
