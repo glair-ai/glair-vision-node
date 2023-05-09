@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <a href="/" id="back">
-      <button>Back</button>
-    </a>
     <div id="container">
-      <h2>Create Passive Liveness Session</h2>
-      <div id="state">
-        <button id="create-session-btn">Click To Create</button>
+      <a href="/" id="back">Back </a>
+      <div id="content-container">
+        <h2>Create Passive Liveness Session</h2>
+        <div id="state">
+          <button id="create-session-btn" class="btn">Click To Create</button>
+        </div>
       </div>
     </div>
   </body>
@@ -35,6 +35,7 @@
       state.childNodes[state.childNodes.length - 1].data = "";
       anchorNode.appendChild(textNode);
       anchorNode.setAttribute("href", data.url);
+      anchorNode.setAttribute("class", "btn");
       state.appendChild(anchorNode);
     });
   </script>

@@ -2,10 +2,6 @@
 
 This is an example of how to use [GLAIR Vision NodeJS SDK](https://github.com/glair-ai/glair-vision-node/) and [GLAIR Web Components](https://github.com/glair-ai/glair-web-components/) in a Express.js application.
 
-## Status
-
-Still on development.
-
 ## Getting Started
 
 Install dependencies:
