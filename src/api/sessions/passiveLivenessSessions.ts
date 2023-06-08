@@ -2,20 +2,20 @@ import { logInfo } from "../../util/logger";
 import { visionFetch } from "../../util/visionFetch";
 import { Config, Settings } from "../config";
 
-type PassiveLivenesSessionsCreateParam = {
+type PassiveLivenessSessionsCreateParam = {
   success_url: string;
   cancel_url?: string;
 };
 
-type PassiveLivenesSessionsRetrieveParam = {
+type PassiveLivenessSessionsRetrieveParam = {
   sid: string;
 };
 
-export class PassiveLivenesSessions {
+export class PassiveLivenessSessions {
   constructor(private readonly config: Config) {}
 
   async create(
-    param: PassiveLivenesSessionsCreateParam,
+    param: PassiveLivenessSessionsCreateParam,
     newConfig?: Partial<Settings>
   ) {
     logInfo("Passive Liveness Sessions - Create", { param });
@@ -35,7 +35,7 @@ export class PassiveLivenesSessions {
   }
 
   async retrieve(
-    param: PassiveLivenesSessionsRetrieveParam,
+    param: PassiveLivenessSessionsRetrieveParam,
     newConfig?: Partial<Settings>
   ) {
     logInfo("Passive Liveness Sessions - Retrieve", { param });

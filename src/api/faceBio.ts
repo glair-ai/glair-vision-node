@@ -3,20 +3,20 @@ import { fileFromSync } from "fetch-blob/from.js";
 import { logInfo } from "../util/logger";
 import { visionFetch } from "../util/visionFetch";
 import { Config, Settings } from "./config";
-import { PassiveLivenesSessions } from "./sessions/passiveLivenessSessions";
-import { ActiveLivenesSessions } from "./sessions/activeLivenessSessions";
+import { PassiveLivenessSessions } from "./sessions/passiveLivenessSessions";
+import { ActiveLivenessSessions } from "./sessions/activeLivenessSessions";
 
 type MatchParam = { captured: string; stored: string };
 type PassiveLivenessParam = { image: string };
 type ActiveLivenessParam = { image: string; gestureCode: string };
 
 export class FaceBio {
-  readonly passiveLivenessSessions: PassiveLivenesSessions;
-  readonly activeLivenessSessions: ActiveLivenesSessions;
+  readonly passiveLivenessSessions: PassiveLivenessSessions;
+  readonly activeLivenessSessions: ActiveLivenessSessions;
 
   constructor(private readonly config: Config) {
-    this.passiveLivenessSessions = new PassiveLivenesSessions(config);
-    this.activeLivenessSessions = new ActiveLivenesSessions(config);
+    this.passiveLivenessSessions = new PassiveLivenessSessions(config);
+    this.activeLivenessSessions = new ActiveLivenessSessions(config);
   }
 
   async match(param: MatchParam, newConfig?: Partial<Settings>) {
