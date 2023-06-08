@@ -2,11 +2,16 @@ import { fileFromSync } from "fetch-blob/from.js";
 import { logInfo } from "../util/logger";
 import { visionFetch } from "../util/visionFetch";
 import { Config, Settings } from "./config";
+import { KtpSessions } from "./sessions/ktpSessions";
 
 type KtpParam = { image: string };
 
 export class Ocr {
-  constructor(private readonly config: Config) {}
+  readonly ktpSessions: KtpSessions;
+
+  constructor(private readonly config: Config) {
+    this.ktpSessions = new KtpSessions(config);
+  }
 
   async ktp(param: KtpParam, newConfig?: Partial<Settings>) {
     logInfo("OCR - KTP");

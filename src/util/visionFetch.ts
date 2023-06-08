@@ -15,7 +15,7 @@ export const visionFetch = async (
       ...overrides?.headers,
       Authorization: config.getBasicAuth(),
       "x-api-key": config.apiKey,
-      "GLAIR-Vision-Nodejs-SDK-Version": "0.0.1-beta.3",
+      "GLAIR-Vision-Nodejs-SDK-Version": "0.0.1-beta.4",
     },
     method: overrides?.method || "GET",
   };
