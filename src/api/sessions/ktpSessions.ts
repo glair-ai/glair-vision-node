@@ -2,23 +2,20 @@ import { logInfo } from "../../util/logger";
 import { visionFetch } from "../../util/visionFetch";
 import { Config, Settings } from "../config";
 
-type PassiveLivenessSessionsCreateParam = {
+type KtpSessionsCreateParam = {
   success_url: string;
   cancel_url?: string;
 };
 
-type PassiveLivenessSessionsRetrieveParam = {
+type KtpSessionsRetrieveParam = {
   sid: string;
 };
 
-export class PassiveLivenessSessions {
+export class KtpSessions {
   constructor(private readonly config: Config) {}
 
-  async create(
-    param: PassiveLivenessSessionsCreateParam,
-    newConfig?: Partial<Settings>
-  ) {
-    logInfo("Passive Liveness Sessions - Create", { param });
+  async create(param: KtpSessionsCreateParam, newConfig?: Partial<Settings>) {
+    logInfo("KTP Sessions - Create", { param });
     const { success_url, cancel_url } = param;
 
     const req: RequestInit = {
@@ -31,14 +28,14 @@ export class PassiveLivenessSessions {
 
     console.log(req);
     const config = this.config.getConfig(newConfig);
-    return visionFetch(config, "face/:version/passive-liveness-sessions", req);
+    return visionFetch(config, "ocr/:version/ktp-sessions", req);
   }
 
   async retrieve(
-    param: PassiveLivenessSessionsRetrieveParam,
+    param: KtpSessionsRetrieveParam,
     newConfig?: Partial<Settings>
   ) {
-    logInfo("Passive Liveness Sessions - Retrieve", { param });
+    logInfo("KTP Sessions - Retrieve", { param });
     const { sid } = param;
 
     const req = {
@@ -46,10 +43,6 @@ export class PassiveLivenessSessions {
     };
 
     const config = this.config.getConfig(newConfig);
-    return visionFetch(
-      config,
-      `face/:version/passive-liveness-sessions/${sid}`,
-      req
-    );
+    return visionFetch(config, `ocr/:version/ktp-sessions/${sid}`, req);
   }
 }
