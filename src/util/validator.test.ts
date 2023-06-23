@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-import { isDefined, isValidURL } from "./validator";
+import { isDefined, isValidURL, runSchemaValidation } from "./validator";
 
 describe("isValidURL", () => {
   test("should return false", () => {
@@ -47,5 +47,40 @@ describe("isString", () => {
     const input = new String("test_string");
 
     expect(isDefined(input)).toBe(true);
+  });
+});
+
+describe("runSchemaValidation", () => {
+  test("should return validation errors", () => {
+    const schema = {
+      foo: (val: any) => (val === "bar" ? "" : "not good"),
+    };
+
+    const obj = {
+      foo: "baz",
+    };
+
+    const result = runSchemaValidation(obj, schema);
+
+    expect(result).toStrictEqual([
+      {
+        key: "foo",
+        message: "not good",
+      },
+    ]);
+  });
+
+  test("should return empty errors", () => {
+    const schema = {
+      foo: (val: any) => (val === "bar" ? "" : "not good"),
+    };
+
+    const obj = {
+      foo: "bar",
+    };
+
+    const result = runSchemaValidation(obj, schema);
+
+    expect(result).toStrictEqual([]);
   });
 });

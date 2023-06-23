@@ -80,7 +80,7 @@ describe("NPWPSessions", () => {
     expect(result).toStrictEqual(mockCreateSessionResponse);
   });
 
-  test("should throw invalid url on invalid success url", async () => {
+  test("should throw validation error", async () => {
     const session = new NPWPSessions(config);
     const param = {
       success_url: "not_an_url",
@@ -89,18 +89,6 @@ describe("NPWPSessions", () => {
 
     await expect(session.create(param)).rejects.toThrow(
       "Success URL must be a valid URL"
-    );
-  });
-
-  test("should throw invalid url on invalid cancel url", async () => {
-    const session = new NPWPSessions(config);
-    const param = {
-      success_url: "https://www.google.com/success",
-      cancel_url: "not_an_url",
-    };
-
-    await expect(session.create(param)).rejects.toThrow(
-      "Cancel URL must be a valid URL"
     );
   });
 

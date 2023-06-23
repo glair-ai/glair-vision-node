@@ -1,19 +1,18 @@
-import { existsSync, readFileSync } from "fs";
+import { fileFromSync } from "fetch-blob/from.js";
+
+import { Config, Settings } from "./config";
 
 import { logInfo } from "../util/logger";
+import { isDefined, runSchemaValidation } from "../util/validator";
 import { visionFetch } from "../util/visionFetch";
-import { Config, Settings } from "./config";
-import { FileNotFoundError } from "../error/file-not-found";
-import { KtpSessions } from "./sessions/ktpSessions";
+
+import type { KTP } from "../types/ktp";
+import type { NPWP } from "../types/npwp";
 
 type OCRParam = { image: string };
 
 export class Ocr {
-  readonly ktpSessions: KtpSessions;
-
-  constructor(private readonly config: Config) {
-    this.ktpSessions = new KtpSessions(config);
-  }
+  constructor(private readonly config: Config) {}
 
   async ktp(param: OCRParam, newConfig?: Partial<Settings>): Promise<KTP> {
     logInfo("OCR - KTP");
@@ -57,42 +56,6 @@ export class Ocr {
     };
 
     return runSchemaValidation(param, schema);
-  }
-
-  async ktp(param: OCRParam, newConfig?: Partial<Settings>) {
-    logInfo("OCR - KTP");
-    const { image } = param;
-
-    if (!existsSync(image)) {
-      throw new FileNotFoundError(image);
-    }
-
-    const formData = new FormData();
-    formData.set("image", new Blob([readFileSync(image)]));
-
-    const req = {
-      method: "POST",
-      body: formData,
-    };
-
-    const config = this.config.getConfig(newConfig);
-    return visionFetch(config, "ocr/:version/ktp", req);
-  }
-
-  async npwp(param: OCRParam, newConfig?: Partial<Settings>) {
-    logInfo("OCR - KTP");
-    const { image } = param;
-
-    const formData = new FormData();
-    formData.set("image", fileFromSync(image));
-
-    const req = {
-      method: "POST",
-      body: formData,
-    };
-
-    const config = this.config.getConfig(newConfig);
-    return visionFetch(config, "ocr/:version/npwp", req);
   }
 }
 function fileFromSync(image: string): string | Blob {
