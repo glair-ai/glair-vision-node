@@ -78,6 +78,22 @@ export class Ocr {
     const config = this.config.getConfig(newConfig);
     return visionFetch(config, "ocr/:version/ktp", req);
   }
+
+  async npwp(param: OCRParam, newConfig?: Partial<Settings>) {
+    logInfo("OCR - KTP");
+    const { image } = param;
+
+    const formData = new FormData();
+    formData.set("image", fileFromSync(image));
+
+    const req = {
+      method: "POST",
+      body: formData,
+    };
+
+    const config = this.config.getConfig(newConfig);
+    return visionFetch(config, "ocr/:version/npwp", req);
+  }
 }
 function fileFromSync(image: string): string | Blob {
   throw new Error("Function not implemented.");
