@@ -1,5 +1,8 @@
 import { Config, Settings } from "../config";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 28dbfc3 (feat: add ocr npwp api)
 
 import {
   SessionCreateParam,
@@ -8,6 +11,7 @@ import {
   validateSessionRetrieveParam,
 } from "../../types/session";
 
+<<<<<<< HEAD
 import { logInfo } from "../../util/logger";
 import { visionFetch } from "../../util/visionFetch";
 
@@ -27,11 +31,17 @@ type NPWPSessionsRetrieveParam = {
 };
 
 >>>>>>> 0aef7fa (feat: add npwp session code)
+=======
+import { logInfo } from "../../util/logger";
+import { visionFetch } from "../../util/visionFetch";
+
+>>>>>>> 28dbfc3 (feat: add ocr npwp api)
 export class NPWPSessions {
   private static readonly BASE_URL = "ocr/:version/npwp-sessions";
 
   constructor(private readonly config: Config) {}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   async create(param: SessionCreateParam, newConfig?: Partial<Settings>) {
     logInfo("NPWP Sessions - Create", { param });
@@ -41,12 +51,19 @@ export class NPWPSessions {
       throw new Error(validationResult[0].message);
 =======
   async create(param: NPWPSessionsCreateParam, newConfig?: Partial<Settings>) {
+=======
+  async create(param: SessionCreateParam, newConfig?: Partial<Settings>) {
+>>>>>>> 28dbfc3 (feat: add ocr npwp api)
     logInfo("NPWP Sessions - Create", { param });
 
-    const validationResult = this.validateCreateParam(param);
+    const validationResult = validateSessionCreateParam(param);
     if (validationResult.length) {
+<<<<<<< HEAD
       throw new Error(validationResult[0]);
 >>>>>>> 0aef7fa (feat: add npwp session code)
+=======
+      throw new Error(validationResult[0].message);
+>>>>>>> 28dbfc3 (feat: add ocr npwp api)
     }
 
     const { success_url, cancel_url } = param;
@@ -64,6 +81,7 @@ export class NPWPSessions {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   async retrieve(param: SessionRetrieveParam, newConfig?: Partial<Settings>) {
     logInfo("NPWP Sessions - Retrieve", { param });
 
@@ -75,12 +93,19 @@ export class NPWPSessions {
     param: NPWPSessionsRetrieveParam,
     newConfig?: Partial<Settings>
   ) {
+=======
+  async retrieve(param: SessionRetrieveParam, newConfig?: Partial<Settings>) {
+>>>>>>> 28dbfc3 (feat: add ocr npwp api)
     logInfo("NPWP Sessions - Retrieve", { param });
 
-    const validationResult = this.validateRetrieveParam(param);
+    const validationResult = validateSessionRetrieveParam(param);
     if (validationResult.length) {
+<<<<<<< HEAD
       throw new Error(validationResult[0]);
 >>>>>>> 0aef7fa (feat: add npwp session code)
+=======
+      throw new Error(validationResult[0].message);
+>>>>>>> 28dbfc3 (feat: add ocr npwp api)
     }
 
     const { sid } = param;
@@ -92,6 +117,7 @@ export class NPWPSessions {
     const config = this.config.getConfig(newConfig);
     return visionFetch(config, `${NPWPSessions.BASE_URL}/${sid}`, req);
   }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
@@ -154,4 +180,6 @@ export class NPWPSessions {
     return result.filter(Boolean);
   }
 >>>>>>> 0aef7fa (feat: add npwp session code)
+=======
+>>>>>>> 28dbfc3 (feat: add ocr npwp api)
 }
