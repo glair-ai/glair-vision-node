@@ -1,6 +1,10 @@
 import { describe, expect, test } from "vitest";
 
+<<<<<<< HEAD
 import { isDefined, isValidURL, runSchemaValidation } from "./validator";
+=======
+import { isDefined, isValidURL } from "./validator";
+>>>>>>> 0aef7fa (feat: add npwp session code)
 
 describe("isValidURL", () => {
   test("should return false", () => {
@@ -49,6 +53,7 @@ describe("isString", () => {
     expect(isDefined(input)).toBe(true);
   });
 });
+<<<<<<< HEAD
 
 describe("runSchemaValidation", () => {
   test("should return validation errors", () => {
@@ -84,3 +89,5 @@ describe("runSchemaValidation", () => {
     expect(result).toStrictEqual([]);
   });
 });
+=======
+>>>>>>> 0aef7fa (feat: add npwp session code)

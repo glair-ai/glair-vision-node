@@ -73,17 +73,3 @@ export class Ocr {
     return runSchemaValidation(param, schema);
   }
 }
-function fileFromSync(image: string): string | Blob {
-  throw new Error("Function not implemented.");
-}
-
-function isDefined(val: any) {
-  throw new Error("Function not implemented.");
-}
-
-function runSchemaValidation(
-  param: OCRParam,
-  schema: { image: (val: any) => "" | "Image is required" }
-) {
-  throw new Error("Function not implemented.");
-}

@@ -15,6 +15,7 @@ export function isDefined(val: unknown) {
 export function isString(val: unknown) {
   return typeof val === "string" || val instanceof String;
 }
+<<<<<<< HEAD
 
 export function runSchemaValidation(
   obj: Record<string, any>,
@@ -33,3 +34,5 @@ export function runSchemaValidation(
 
   return result.filter((res) => !!res.message);
 }
+=======
+>>>>>>> 0aef7fa (feat: add npwp session code)
