@@ -8,11 +8,19 @@ import { visionFetch } from "../util/visionFetch";
 
 import type { KTP } from "../types/ktp";
 import type { NPWP } from "../types/npwp";
+import { KtpSessions } from "./sessions/ktpSessions";
+import { NPWPSessions } from "./sessions/npwpSessions";
 
 type OCRParam = { image: string };
 
 export class Ocr {
-  constructor(private readonly config: Config) {}
+  readonly ktpSessions: KtpSessions;
+  readonly npwpSessions: NPWPSessions;
+
+  constructor(private readonly config: Config) {
+    this.ktpSessions = new KtpSessions(config);
+    this.npwpSessions = new NPWPSessions(config);
+  }
 
   async ktp(param: OCRParam, newConfig?: Partial<Settings>): Promise<KTP> {
     logInfo("OCR - KTP");
