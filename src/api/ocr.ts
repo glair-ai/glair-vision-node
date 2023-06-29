@@ -1,7 +1,9 @@
-import { fileFromSync } from "fetch-blob/from.js";
+import { existsSync, readFileSync } from "fs";
+
 import { logInfo } from "../util/logger";
 import { visionFetch } from "../util/visionFetch";
 import { Config, Settings } from "./config";
+import { FileNotFoundError } from "../error/file-not-found";
 
 type KtpParam = { image: string };
 
@@ -12,8 +14,12 @@ export class Ocr {
     logInfo("OCR - KTP");
     const { image } = param;
 
+    if (!existsSync(image)) {
+      throw new FileNotFoundError(image);
+    }
+
     const formData = new FormData();
-    formData.set("image", fileFromSync(image));
+    formData.set("image", new Blob([readFileSync(image)]));
 
     const req = {
       method: "POST",

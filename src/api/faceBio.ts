@@ -1,10 +1,11 @@
 import fs from "fs";
-import { fileFromSync } from "fetch-blob/from.js";
+import { existsSync, readFileSync } from "fs";
 import { logInfo } from "../util/logger";
 import { visionFetch } from "../util/visionFetch";
 import { Config, Settings } from "./config";
 import { PassiveLivenesSessions } from "./sessions/passiveLivenessSessions";
 import { ActiveLivenesSessions } from "./sessions/activeLivenessSessions";
+import { FileNotFoundError } from "../error/file-not-found";
 
 type MatchParam = { captured: string; stored: string };
 type PassiveLivenessParam = { image: string };
@@ -22,6 +23,14 @@ export class FaceBio {
   async match(param: MatchParam, newConfig?: Partial<Settings>) {
     logInfo("Face Biometric - Match", { param });
     const { captured, stored } = param;
+
+    if (!existsSync(captured)) {
+      throw new FileNotFoundError(captured);
+    }
+
+    if (!existsSync(stored)) {
+      throw new FileNotFoundError(stored);
+    }
 
     const data = {
       captured_image: this.base64_encode(captured),
@@ -44,8 +53,12 @@ export class FaceBio {
     logInfo("Face Biometric - Passive Liveness", { param });
     const { image } = param;
 
+    if (!existsSync(image)) {
+      throw new FileNotFoundError(image);
+    }
+
     const formData = new FormData();
-    formData.set("image", fileFromSync(image));
+    formData.set("image", new Blob([readFileSync(image)]));
 
     const req = {
       method: "POST",
@@ -63,8 +76,12 @@ export class FaceBio {
     logInfo("Face Biometric - Active Liveness", { param });
     const { image, gestureCode } = param;
 
+    if (!existsSync(image)) {
+      throw new FileNotFoundError(image);
+    }
+
     const formData = new FormData();
-    formData.set("image", fileFromSync(image));
+    formData.set("image", new Blob([readFileSync(image)]));
     formData.set("gesture-code", gestureCode);
 
     const req = {
