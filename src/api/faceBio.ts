@@ -3,9 +3,10 @@ import { existsSync, readFileSync } from "fs";
 import { logInfo } from "../util/logger";
 import { visionFetch } from "../util/visionFetch";
 import { Config, Settings } from "./config";
-import { FileNotFoundError } from "../error/file-not-found";
 import { PassiveLivenessSessions } from "./sessions/passiveLivenessSessions";
 import { ActiveLivenessSessions } from "./sessions/activeLivenessSessions";
+
+import { FileNotFoundError } from "../error/file-not-found";
 
 type MatchParam = { captured: string; stored: string };
 type PassiveLivenessParam = { image: string };
