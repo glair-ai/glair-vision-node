@@ -1,5 +1,5 @@
-import fs from "fs";
 import { existsSync, readFileSync } from "fs";
+
 import { logInfo } from "../util/logger";
 import { visionFetch } from "../util/visionFetch";
 import { Config, Settings } from "./config";
@@ -7,7 +7,6 @@ import { PassiveLivenessSessions } from "./sessions/passiveLivenessSessions";
 import { ActiveLivenessSessions } from "./sessions/activeLivenessSessions";
 
 import { FileNotFoundError } from "../error/file-not-found";
-
 
 type MatchParam = { captured: string; stored: string };
 type PassiveLivenessParam = { image: string };
@@ -96,7 +95,7 @@ export class FaceBio {
   }
 
   base64_encode(file: string) {
-    const bitmap = fs.readFileSync(file);
+    const bitmap = readFileSync(file);
     return Buffer.from(bitmap).toString("base64");
   }
 }
