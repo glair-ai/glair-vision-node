@@ -1,21 +1,28 @@
-import { logInfo } from "../../util/logger";
-import { visionFetch } from "../../util/visionFetch";
 import { Config, Settings } from "../config";
 
-type KtpSessionsCreateParam = {
-  success_url: string;
-  cancel_url?: string;
-};
+import {
+  SessionCreateParam,
+  SessionRetrieveParam,
+  validateSessionCreateParam,
+  validateSessionRetrieveParam,
+} from "../../types/session";
 
-type KtpSessionsRetrieveParam = {
-  sid: string;
-};
+import { logInfo } from "../../util/logger";
+import { visionFetch } from "../../util/visionFetch";
 
 export class KtpSessions {
+  private static readonly BASE_URL = "ocr/:version/ktp-sessions";
+
   constructor(private readonly config: Config) {}
 
-  async create(param: KtpSessionsCreateParam, newConfig?: Partial<Settings>) {
+  async create(param: SessionCreateParam, newConfig?: Partial<Settings>) {
     logInfo("KTP Sessions - Create", { param });
+
+    const validationResult = validateSessionCreateParam(param);
+    if (validationResult.length) {
+      throw new Error(validationResult[0].message);
+    }
+
     const { success_url, cancel_url } = param;
 
     const req: RequestInit = {
@@ -28,14 +35,17 @@ export class KtpSessions {
 
     console.log(req);
     const config = this.config.getConfig(newConfig);
-    return visionFetch(config, "ocr/:version/ktp-sessions", req);
+    return visionFetch(config, KtpSessions.BASE_URL, req);
   }
 
-  async retrieve(
-    param: KtpSessionsRetrieveParam,
-    newConfig?: Partial<Settings>
-  ) {
+  async retrieve(param: SessionRetrieveParam, newConfig?: Partial<Settings>) {
     logInfo("KTP Sessions - Retrieve", { param });
+
+    const validationResult = validateSessionRetrieveParam(param);
+    if (validationResult.length) {
+      throw new Error(validationResult[0].message);
+    }
+
     const { sid } = param;
 
     const req = {
@@ -43,6 +53,6 @@ export class KtpSessions {
     };
 
     const config = this.config.getConfig(newConfig);
-    return visionFetch(config, `ocr/:version/ktp-sessions/${sid}`, req);
+    return visionFetch(config, `${KtpSessions.BASE_URL}/${sid}`, req);
   }
 }

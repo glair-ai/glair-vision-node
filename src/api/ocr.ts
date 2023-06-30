@@ -1,15 +1,18 @@
-import { fileFromSync } from "fetch-blob/from.js";
+import { existsSync, readFileSync } from "fs";
 
 import { Config, Settings } from "./config";
+
+import { KtpSessions } from "./sessions/ktpSessions";
+import { NPWPSessions } from "./sessions/npwpSessions";
 
 import { logInfo } from "../util/logger";
 import { isDefined, runSchemaValidation } from "../util/validator";
 import { visionFetch } from "../util/visionFetch";
 
+import { FileNotFoundError } from "../error/file-not-found";
+
 import type { KTP } from "../types/ktp";
 import type { NPWP } from "../types/npwp";
-import { KtpSessions } from "./sessions/ktpSessions";
-import { NPWPSessions } from "./sessions/npwpSessions";
 
 type OCRParam = { image: string };
 
@@ -46,8 +49,12 @@ export class Ocr {
 
     const { image } = param;
 
+    if (!existsSync(image)) {
+      throw new FileNotFoundError(image);
+    }
+
     const formData = new FormData();
-    formData.set("image", fileFromSync(image));
+    formData.set("image", new Blob([readFileSync(image)]));
 
     const req = {
       method: "POST",
@@ -65,18 +72,4 @@ export class Ocr {
 
     return runSchemaValidation(param, schema);
   }
-}
-function fileFromSync(image: string): string | Blob {
-  throw new Error("Function not implemented.");
-}
-
-function isDefined(val: any) {
-  throw new Error("Function not implemented.");
-}
-
-function runSchemaValidation(
-  param: OCRParam,
-  schema: { image: (val: any) => "" | "Image is required" }
-) {
-  throw new Error("Function not implemented.");
 }
