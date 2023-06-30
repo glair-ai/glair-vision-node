@@ -10,13 +10,13 @@ import {
 import { logInfo } from "../../util/logger";
 import { visionFetch } from "../../util/visionFetch";
 
-export class KtpSessions {
-  private static readonly BASE_URL = "ocr/:version/ktp-sessions";
+export class NPWPSessions {
+  private static readonly BASE_URL = "ocr/:version/npwp-sessions";
 
   constructor(private readonly config: Config) {}
 
   async create(param: SessionCreateParam, newConfig?: Partial<Settings>) {
-    logInfo("KTP Sessions - Create", { param });
+    logInfo("NPWP Sessions - Create", { param });
 
     const validationResult = validateSessionCreateParam(param);
     if (validationResult.length) {
@@ -33,27 +33,25 @@ export class KtpSessions {
       body: JSON.stringify({ success_url, cancel_url }),
     };
 
-    console.log(req);
     const config = this.config.getConfig(newConfig);
-    return visionFetch(config, KtpSessions.BASE_URL, req);
+    return visionFetch(config, NPWPSessions.BASE_URL, req);
   }
 
   async retrieve(param: SessionRetrieveParam, newConfig?: Partial<Settings>) {
-    logInfo("KTP Sessions - Retrieve", { param });
+    logInfo("NPWP Sessions - Retrieve", { param });
 
     const validationResult = validateSessionRetrieveParam(param);
     if (validationResult.length) {
       throw new Error(validationResult[0].message);
     }
-    
+
     const { sid } = param;
 
     const req = {
       method: "GET",
     };
-    
-    const config = this.config.getConfig(newConfig);
 
-    return visionFetch(config, `${KtpSessions.BASE_URL}/${sid}`, req);
+    const config = this.config.getConfig(newConfig);
+    return visionFetch(config, `${NPWPSessions.BASE_URL}/${sid}`, req);
   }
 }
