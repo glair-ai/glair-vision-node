@@ -80,15 +80,7 @@ describe("NPWPSessions", () => {
     expect(result).toStrictEqual(mockCreateSessionResponse);
   });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   test("should throw validation error", async () => {
-=======
-  test("should throw invalid url on invalid success url", async () => {
->>>>>>> 0aef7fa (feat: add npwp session code)
-=======
-  test("should throw validation error", async () => {
->>>>>>> 28dbfc3 (feat: add ocr npwp api)
     const session = new NPWPSessions(config);
     const param = {
       success_url: "not_an_url",
@@ -100,24 +92,6 @@ describe("NPWPSessions", () => {
     );
   });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  test("should throw invalid url on invalid cancel url", async () => {
-    const session = new NPWPSessions(config);
-    const param = {
-      success_url: "https://www.google.com/success",
-      cancel_url: "not_an_url",
-    };
-
-    await expect(session.create(param)).rejects.toThrow(
-      "Cancel URL must be a valid URL"
-    );
-  });
-
->>>>>>> 0aef7fa (feat: add npwp session code)
-=======
->>>>>>> 28dbfc3 (feat: add ocr npwp api)
   test("should retrieve an npwp session", async () => {
     const session = new NPWPSessions(config);
     const result = await session.retrieve({

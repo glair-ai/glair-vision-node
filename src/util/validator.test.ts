@@ -1,14 +1,6 @@
 import { describe, expect, test } from "vitest";
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { isDefined, isValidURL, runSchemaValidation } from "./validator";
-=======
-import { isDefined, isValidURL } from "./validator";
->>>>>>> 0aef7fa (feat: add npwp session code)
-=======
-import { isDefined, isValidURL, runSchemaValidation } from "./validator";
->>>>>>> 28dbfc3 (feat: add ocr npwp api)
 
 describe("isValidURL", () => {
   test("should return false", () => {
@@ -57,10 +49,6 @@ describe("isString", () => {
     expect(isDefined(input)).toBe(true);
   });
 });
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 28dbfc3 (feat: add ocr npwp api)
 
 describe("runSchemaValidation", () => {
   test("should return validation errors", () => {
@@ -96,8 +84,3 @@ describe("runSchemaValidation", () => {
     expect(result).toStrictEqual([]);
   });
 });
-<<<<<<< HEAD
-=======
->>>>>>> 0aef7fa (feat: add npwp session code)
-=======
->>>>>>> 28dbfc3 (feat: add ocr npwp api)
