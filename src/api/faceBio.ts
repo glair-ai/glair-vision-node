@@ -8,6 +8,7 @@ import { ActiveLivenessSessions } from "./sessions/activeLivenessSessions";
 
 import { FileNotFoundError } from "../error/file-not-found";
 
+
 type MatchParam = { captured: string; stored: string };
 type PassiveLivenessParam = { image: string };
 type ActiveLivenessParam = { image: string; gestureCode: string };

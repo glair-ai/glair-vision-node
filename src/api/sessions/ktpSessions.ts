@@ -45,14 +45,15 @@ export class KtpSessions {
     if (validationResult.length) {
       throw new Error(validationResult[0].message);
     }
-
+    
     const { sid } = param;
 
     const req = {
       method: "GET",
     };
-
+    
     const config = this.config.getConfig(newConfig);
+
     return visionFetch(config, `${KtpSessions.BASE_URL}/${sid}`, req);
   }
 }
