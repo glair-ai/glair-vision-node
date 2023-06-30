@@ -1,3 +1,5 @@
+import { existsSync, readFileSync } from "fs";
+
 import { Config, Settings } from "./config";
 
 import { KtpSessions } from "./sessions/ktpSessions";
