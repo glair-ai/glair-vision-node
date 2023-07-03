@@ -1,5 +1,9 @@
 import { defineConfig } from "vite";
 
+import replace from "@rollup/plugin-replace";
+
+import packageDef from "./package.json";
+
 // https://vitejs.dev/config/
 export default defineConfig({
   build: {
@@ -20,6 +24,12 @@ export default defineConfig({
       // Webpack supports "data:" and "file:" URIs by default.
       // You may need an additional plugin to handle "node:" URIs.
       external: ["node:fs", "node:path", "fs"],
+      plugins: [
+        replace({
+          preventAssignment: true,
+          __packageVersion: `${packageDef.version}`,
+        }),
+      ],
     },
     minify: false,
   },

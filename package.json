@@ -42,6 +42,7 @@
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
+    "@rollup/plugin-replace": "^5.0.2",
     "@vitest/coverage-c8": "^0.29.7",
     "msw": "^1.2.2",
     "typescript": "^4.9.3",
