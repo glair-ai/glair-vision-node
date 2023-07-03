@@ -149,7 +149,12 @@ console.log(resp);
 
 ### NPWP
 
-_in development_.
+```ts
+const resp = await vision.ocr
+  .npwp({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
 
 ### KK
 
@@ -275,6 +280,29 @@ Retrieve Session
 
 ```ts
 const resp = await vision.ocr.ktpSessions
+  .retrieve({ sid: "session-id" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+### NPWP Sessions
+
+Create session
+
+```ts
+const resp = await vision.ocr.npwpSessions
+  .create({
+    success_url: "https://docs.glair.ai?success=true",
+    cancel_url: "https://docs.glair.ai?success=false",
+  })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+Retrieve Session
+
+```ts
+const resp = await vision.ocr.npwpSessions
   .retrieve({ sid: "session-id" })
   .catch((err) => console.error(err));
 console.log(resp);
