@@ -1,0 +1,41 @@
+name: Publish package to NPM.js
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  # Ensure that the package can be built and pass all tests
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to repository
+        uses: actions/checkout@v3
+      - name: Setup Node.JS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
+      - name: Install dependencies from lockfile
+        run: npm ci
+      - name: Test the package
+        run: npm run test
+  # Release the package
+  release:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout to repository
+        uses: actions/checkout@v3
+      - name: Setup Node.JS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
+      - name: Install dependencies from lockfile
+        run: npm ci
+      - name: Build the package
+        run: npm run build
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
