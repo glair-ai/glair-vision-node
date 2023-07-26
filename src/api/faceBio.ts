@@ -33,14 +33,13 @@ export class FaceBio {
       throw new FileNotFoundError(stored);
     }
 
-    const data = {
-      captured_image: this.base64_encode(captured),
-      stored_image: this.base64_encode(stored),
-    };
+    const formData = new FormData();
+    formData.set("captured_image", new Blob([readFileSync(captured)]));
+    formData.set("stored_image", new Blob([readFileSync(stored)]));
 
     const req = {
       method: "POST",
-      body: JSON.stringify(data),
+      body: formData,
     };
 
     const config = this.config.getConfig(newConfig);

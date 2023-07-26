@@ -158,23 +158,75 @@ console.log(resp);
 
 ### KK
 
-_in development_.
+```ts
+const resp = await vision
+  .kk({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
 
 ### STNK
 
-_in development_.
+```ts
+const resp = await vision.ocr
+  .stnk({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
 
 ### BPKB
 
-_in development_.
+```ts
+const resp = await vision.ocr
+  .bpkb({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
 
 ### Passport
 
-_in development_.
+```ts
+const resp = await vision.ocr
+  .passport({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
 
 ### License Plate
 
-_in development_.
+```ts
+const resp = await vision.ocr
+  .licensePlate({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+### General Document
+
+```ts
+const resp = await vision.ocr
+  .generalDocument({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+### Invoice
+
+```ts
+const resp = await vision.ocr
+  .invoice({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+### Receipt
+
+```ts
+const resp = await vision.ocr
+  .receipt({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
 
 ## Face Biometric
 
