@@ -142,7 +142,7 @@ export default async function handler(
 
 ```ts
 const resp = await vision.ocr
-  .ktp({ image: "/path/to/image.jpg" })
+  .ktp({ image: "/path/to/image.jpg", qualities_detector: true }) // qualities_detector is false by default
   .catch((err) => console.error(err));
 console.log(resp);
 ```

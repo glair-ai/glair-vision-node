@@ -34,12 +34,14 @@ export default async function handler(
     });
   };
 
-  const { files } = await parse();
+  const { files, fields } = await parse();
   const filePath = (files.image as formidable.File[])[0].filepath;
+  const qualitiesDetector =
+    fields.qualities_detector && fields.qualities_detector[0] === "true";
 
   let error = null;
   const resp = await vision.ocr
-    .ktp({ image: filePath })
+    .ktp({ image: filePath, qualities_detector: qualitiesDetector as boolean })
     .catch((err) => (error = err));
   if (error) {
     res.status(400).json(error);

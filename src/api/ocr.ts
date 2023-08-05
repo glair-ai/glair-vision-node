@@ -17,7 +17,7 @@ import type { GeneralDocument } from "../types/generalDocument";
 import { Invoice } from "../types/invoice";
 import { Receipt } from "../types/receipt";
 
-type OCRParam = { image: string };
+type OCRParam = { image: string; qualities_detector?: boolean };
 
 export class Ocr {
   readonly ktpSessions: KtpSessions;
@@ -88,7 +88,7 @@ export class Ocr {
       throw new Error(validationResult[0].message);
     }
 
-    const { image } = param;
+    const { image, qualities_detector } = param;
 
     if (!existsSync(image)) {
       throw new FileNotFoundError(image);
@@ -107,7 +107,13 @@ export class Ocr {
     };
 
     const config = this.config.getConfig(newConfig);
-    return visionFetch(config, `ocr/:version/${endpoint}`, req);
+    return visionFetch(
+      config,
+      qualities_detector
+        ? `ocr/:version/${endpoint}/qualities`
+        : `ocr/:version/${endpoint}`,
+      req
+    );
   }
 
   validateOCRParam(param: OCRParam) {
