@@ -1,36 +1,45 @@
-import fs from "fs";
-import { fileFromSync } from "fetch-blob/from.js";
+import { existsSync, readFileSync } from "fs";
+
 import { logInfo } from "../util/logger";
 import { visionFetch } from "../util/visionFetch";
 import { Config, Settings } from "./config";
-import { PassiveLivenesSessions } from "./sessions/passiveLivenessSessions";
-import { ActiveLivenesSessions } from "./sessions/activeLivenessSessions";
+import { PassiveLivenessSessions } from "./sessions/passiveLivenessSessions";
+import { ActiveLivenessSessions } from "./sessions/activeLivenessSessions";
+
+import { FileNotFoundError } from "../error/file-not-found";
 
 type MatchParam = { captured: string; stored: string };
 type PassiveLivenessParam = { image: string };
 type ActiveLivenessParam = { image: string; gestureCode: string };
 
 export class FaceBio {
-  readonly passiveLivenessSessions: PassiveLivenesSessions;
-  readonly activeLivenessSessions: ActiveLivenesSessions;
+  readonly passiveLivenessSessions: PassiveLivenessSessions;
+  readonly activeLivenessSessions: ActiveLivenessSessions;
 
   constructor(private readonly config: Config) {
-    this.passiveLivenessSessions = new PassiveLivenesSessions(config);
-    this.activeLivenessSessions = new ActiveLivenesSessions(config);
+    this.passiveLivenessSessions = new PassiveLivenessSessions(config);
+    this.activeLivenessSessions = new ActiveLivenessSessions(config);
   }
 
   async match(param: MatchParam, newConfig?: Partial<Settings>) {
-    logInfo("Face Match", { param });
+    logInfo("Face Biometric - Match", { param });
     const { captured, stored } = param;
 
-    const data = {
-      captured_image: this.base64_encode(captured),
-      stored_image: this.base64_encode(stored),
-    };
+    if (!existsSync(captured)) {
+      throw new FileNotFoundError(captured);
+    }
+
+    if (!existsSync(stored)) {
+      throw new FileNotFoundError(stored);
+    }
+
+    const formData = new FormData();
+    formData.set("captured_image", new Blob([readFileSync(captured)]));
+    formData.set("stored_image", new Blob([readFileSync(stored)]));
 
     const req = {
       method: "POST",
-      body: JSON.stringify(data),
+      body: formData,
     };
 
     const config = this.config.getConfig(newConfig);
@@ -41,11 +50,15 @@ export class FaceBio {
     param: PassiveLivenessParam,
     newConfig?: Partial<Settings>
   ) {
-    logInfo("Passive Liveness", { param });
+    logInfo("Face Biometric - Passive Liveness", { param });
     const { image } = param;
 
+    if (!existsSync(image)) {
+      throw new FileNotFoundError(image);
+    }
+
     const formData = new FormData();
-    formData.set("image", fileFromSync(image));
+    formData.set("image", new Blob([readFileSync(image)]));
 
     const req = {
       method: "POST",
@@ -60,11 +73,15 @@ export class FaceBio {
     param: ActiveLivenessParam,
     newConfig?: Partial<Settings>
   ) {
-    logInfo("Active Liveness", { param });
+    logInfo("Face Biometric - Active Liveness", { param });
     const { image, gestureCode } = param;
 
+    if (!existsSync(image)) {
+      throw new FileNotFoundError(image);
+    }
+
     const formData = new FormData();
-    formData.set("image", fileFromSync(image));
+    formData.set("image", new Blob([readFileSync(image)]));
     formData.set("gesture-code", gestureCode);
 
     const req = {
@@ -77,7 +94,7 @@ export class FaceBio {
   }
 
   base64_encode(file: string) {
-    const bitmap = fs.readFileSync(file);
+    const bitmap = readFileSync(file);
     return Buffer.from(bitmap).toString("base64");
   }
 }

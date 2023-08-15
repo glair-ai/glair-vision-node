@@ -19,7 +19,7 @@ export default function PassiveLiveness() {
     const formData = new FormData();
     formData.append("image", blob);
 
-    const resp = await fetch("api/pl", {
+    const resp = await fetch("api/npwp", {
       method: "POST",
       body: formData,
     });
@@ -57,7 +57,7 @@ export default function PassiveLiveness() {
                 onClick={handleClick}
               ></button>
               <p className="mt-3">
-                Make sure your face is clearly visible on the marked area
+                Make sure your NPWP is clearly visible on the marked area
               </p>
             </>
           )}

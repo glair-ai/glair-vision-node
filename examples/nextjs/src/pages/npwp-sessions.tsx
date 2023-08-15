@@ -20,7 +20,7 @@ export default function PassiveLivenessSessions({
           className="rounded-lg border px-5 py-4 transition-colors border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
           type="submit"
         >
-          Perform Passive Liveness via session
+          Perform NPWP OCR via session
         </button>
       </form>
     </Container>
@@ -66,7 +66,7 @@ export const getServerSideProps: GetServerSideProps<{ data: Data }> = async ({
   query,
 }) => {
   const sid = query.sid;
-  const data: Data = await vision.faceBio.passiveLivenessSessions
+  const data: Data = await vision.ocr.npwpSessions
     .retrieve({
       sid: sid as string,
     })

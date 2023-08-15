@@ -19,7 +19,7 @@
 
 ## Requirement
 
-Node version 18 or higher.
+You need <span style="color: green">**Node version 18 or higher**</span>. For local development, we recommend to use [Node Version Manager (NVM)](https://github.com/nvm-sh/nvm).
 
 ## Installation
 
@@ -48,6 +48,7 @@ Afterwards, you can use the provided functions to access GLAIR Vision API:
 1. [OCR](#ocr)
 2. [Face Biometric](#face-biometric)
 3. [Session](#session)
+4. [Identity](#identity)
 
 ## Configuration
 
@@ -103,7 +104,7 @@ Instantiate a Vision instance in a file and export it.
 // util/vision.ts
 import { Vision } from "@glair/vision";
 
-export const vision = new Vision({
+const vision = new Vision({
   apiKey: "api-key",
   username: "username",
   password: "password",
@@ -128,6 +129,11 @@ export default async function handler(
 }
 ```
 
+## FAQ
+
+1. I got `ReferenceError: FormData is not defined` error. What should I do?
+   - Make sure you use Node version 18 or higher.
+
 ---
 
 ## OCR
@@ -136,34 +142,91 @@ export default async function handler(
 
 ```ts
 const resp = await vision.ocr
-  .ktp({ image: "/path/to/image.jpg" })
+  .ktp({ image: "/path/to/image.jpg", qualities_detector: true }) // qualities_detector is false by default
   .catch((err) => console.error(err));
 console.log(resp);
 ```
 
 ### NPWP
 
-_in development_.
+```ts
+const resp = await vision.ocr
+  .npwp({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
 
 ### KK
 
-_in development_.
+```ts
+const resp = await vision
+  .kk({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
 
 ### STNK
 
-_in development_.
+```ts
+const resp = await vision.ocr
+  .stnk({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
 
 ### BPKB
 
-_in development_.
+```ts
+const resp = await vision.ocr
+  .bpkb({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
 
 ### Passport
 
-_in development_.
+```ts
+const resp = await vision.ocr
+  .passport({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
 
 ### License Plate
 
-_in development_.
+```ts
+const resp = await vision.ocr
+  .licensePlate({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+### General Document
+
+```ts
+const resp = await vision.ocr
+  .generalDocument({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+### Invoice
+
+```ts
+const resp = await vision.ocr
+  .invoice({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+### Receipt
+
+```ts
+const resp = await vision.ocr
+  .receipt({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
 
 ## Face Biometric
 
@@ -229,4 +292,99 @@ console.log(resp);
 
 ### Active Liveness Sessions
 
-_in development_.
+Create session
+
+```ts
+const resp = await vision.faceBio.activeLivenessSessions
+  .create({
+    success_url: "https://docs.glair.ai?success=true",
+    cancel_url: "https://docs.glair.ai?success=false",
+    number_of_gesture: 3,
+  })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+Retrieve Session
+
+```ts
+const resp = await vision.faceBio.activeLivenessSessions
+  .retrieve({ sid: "session-id" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+### KTP Sessions
+
+Create session
+
+```ts
+const resp = await vision.ocr.ktpSessions
+  .create({
+    success_url: "https://docs.glair.ai?success=true",
+    cancel_url: "https://docs.glair.ai?success=false",
+  })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+Retrieve Session
+
+```ts
+const resp = await vision.ocr.ktpSessions
+  .retrieve({ sid: "session-id" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+### NPWP Sessions
+
+Create session
+
+```ts
+const resp = await vision.ocr.npwpSessions
+  .create({
+    success_url: "https://docs.glair.ai?success=true",
+    cancel_url: "https://docs.glair.ai?success=false",
+  })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+Retrieve Session
+
+```ts
+const resp = await vision.ocr.npwpSessions
+  .retrieve({ sid: "session-id" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+## Identity
+
+### Basic Verification
+
+```ts
+const resp = await vision.identity
+  .verification({
+    nik: "1234567890123456",
+    name: "John Doe",
+    date_of_birth: "01-01-2000",
+  })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
+### Face Verification
+
+```ts
+const resp = await vision.identity
+  .faceVerification({
+    nik: "1234567890123456",
+    name: "John Doe",
+    date_of_birth: "01-01-2000",
+    face_of_image: "/path/to/image.jpg",
+  })
+  .catch((err) => console.error(err));
+console.log(resp);
+```

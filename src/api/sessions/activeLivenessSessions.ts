@@ -2,24 +2,24 @@ import { logInfo } from "../../util/logger";
 import { visionFetch } from "../../util/visionFetch";
 import { Config, Settings } from "../config";
 
-type ActiveLivenesSessionsCreateParam = {
+type ActiveLivenessSessionsCreateParam = {
   success_url: string;
   cancel_url?: string;
   number_of_gestures?: number;
 };
 
-type ActiveLivenesSessionsRetrieveParam = {
+type ActiveLivenessSessionsRetrieveParam = {
   sid: string;
 };
 
-export class ActiveLivenesSessions {
+export class ActiveLivenessSessions {
   constructor(private readonly config: Config) {}
 
   async create(
-    param: ActiveLivenesSessionsCreateParam,
+    param: ActiveLivenessSessionsCreateParam,
     newConfig?: Partial<Settings>
   ) {
-    logInfo("Active Liveness Sessions Create", { param });
+    logInfo("Active Liveness Sessions - Create", { param });
     const { success_url, cancel_url, number_of_gestures } = param;
 
     const req: RequestInit = {
@@ -36,10 +36,10 @@ export class ActiveLivenesSessions {
   }
 
   async retrieve(
-    param: ActiveLivenesSessionsRetrieveParam,
+    param: ActiveLivenessSessionsRetrieveParam,
     newConfig?: Partial<Settings>
   ) {
-    logInfo("Active Liveness Sessions Retrieve", { param });
+    logInfo("Active Liveness Sessions - Retrieve", { param });
     const { sid } = param;
 
     const req = {
