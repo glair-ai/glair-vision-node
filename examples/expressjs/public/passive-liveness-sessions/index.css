@@ -1,0 +1,65 @@
+body {
+  background: black;
+  width: 100vw;
+  height: 95vh;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  color: white;
+  position: relative;
+  width: 90%;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+#back {
+  display: inline-block;
+  position: relative;
+  left: calc(50% - 200px);
+  transform: translate(-50%, 0);
+  padding: 1rem;
+  color: white;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 576px) {
+  #back {
+    left: 5%;
+  }
+}
+
+#content-container {
+  width: 350px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#state {
+  color: white;
+  margin: 1rem;
+}
+
+#state a {
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn {
+  padding: 1rem;
+  cursor: pointer;
+  border: 1px solid #555;
+  border-radius: 10%;
+  color: white;
+  background: transparent;
+}
+
+.btn:hover {
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2),
+    0 6px 20px 0 rgba(255, 255, 255, 0.19);
+}

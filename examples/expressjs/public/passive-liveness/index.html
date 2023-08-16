@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Passive Liveness</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div id="container">
+      <a href="/" id="back"> Back </a>
+      <div id="webcam-wrapper">
+        <glair-webcam mirrored width="300" height="300"></glair-webcam>
+        <div id="instruction">
+          <p id="title">Take photo</p>
+          <button id="sshot-btn"></button>
+          <p id="description">
+            Make sure your face is clearly visible on the marked area
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script
+    type="module"
+    src="https://unpkg.com/@glair/web-components/standalone/webcam.js"
+  ></script>
+
+  <script>
+    const glairWebcam = document.querySelector("glair-webcam");
+    const btn = document.querySelector("#sshot-btn");
+
+    btn.addEventListener("click", async () => {
+      // Get Screenshot
+      const base64sshot = await glairWebcam.screenshot();
+
+      // Change Webcam to Screenshot Image
+      const sshotNode = document.createElement("img");
+      sshotNode.setAttribute("src", base64sshot);
+      glairWebcam.replaceWith(sshotNode);
+
+      // Change Instruction to Loading
+      const title = document.querySelector("#title");
+      title.childNodes[0].data = "Loading";
+
+      btn.remove();
+
+      const description = document.querySelector("#description");
+      description.childNodes[0].data =
+        "The estimated loading time is 6 seconds.";
+
+      // API Call
+      const fetchSshot = await fetch(base64sshot);
+      const blob = await fetchSshot.blob();
+      const formdata = new FormData();
+      formdata.append("image", blob);
+
+      const response = await fetch("/pl", {
+        method: "POST",
+        body: formdata,
+        redirect: "follow",
+      });
+
+      const data = await response.json();
+      // console.log(data);
+
+      // Show Result
+      title.childNodes[0].data = "Result";
+
+      const preNode = document.createElement("pre");
+      preNode.textContent = JSON.stringify(data, undefined, 2);
+      description.childNodes[0].data = "";
+      description.replaceWith(preNode);
+    });
+  </script>
+</html>
