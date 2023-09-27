@@ -14,8 +14,9 @@ import { FileNotFoundError } from "../error/file-not-found";
 import type { KTP } from "../types/ktp";
 import type { NPWP } from "../types/npwp";
 import type { GeneralDocument } from "../types/generalDocument";
-import { Invoice } from "../types/invoice";
-import { Receipt } from "../types/receipt";
+import type { Invoice } from "../types/invoice";
+import type { Receipt } from "../types/receipt";
+import type { BankStatement } from '../types/bankStatement';
 
 type OCRParam = { image: string };
 
@@ -76,6 +77,11 @@ export class Ocr {
   async receipt(param: OCRParam, newConfig?: Partial<Settings>) {
     logInfo("OCR - Receipt");
     return this.fetchOCR<Receipt>(param, "receipt", newConfig);
+  }
+
+  async bankStatement(param: OCRParam, newConfig?: Partial<Settings>) {
+    logInfo("OCR - Bank Statement");
+    return this.fetchOCR<BankStatement>(param, "bank-statement", newConfig);
   }
 
   private fetchOCR<T>(
