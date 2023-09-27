@@ -142,7 +142,7 @@ export default async function handler(
 
 ```ts
 const resp = await vision.ocr
-  .ktp({ image: "/path/to/image.jpg" })
+  .ktp({ image: "/path/to/image.jpg", qualities_detector: true }) // qualities_detector is false by default
   .catch((err) => console.error(err));
 console.log(resp);
 ```
@@ -383,7 +383,7 @@ const resp = await vision.identity
     nik: "1234567890123456",
     name: "John Doe",
     date_of_birth: "01-01-2000",
-    face_of_image: "/path/to/image.jpg",
+    face_image: "/path/to/image.jpg",
   })
   .catch((err) => console.error(err));
 console.log(resp);
