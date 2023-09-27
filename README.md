@@ -228,6 +228,15 @@ const resp = await vision.ocr
 console.log(resp);
 ```
 
+### Bank Statement
+
+```ts
+const resp = await vision.ocr
+  .bankStatement({ image: "/path/to/image.jpg" })
+  .catch((err) => console.error(err));
+console.log(resp);
+```
+
 ## Face Biometric
 
 ### Face Matching
