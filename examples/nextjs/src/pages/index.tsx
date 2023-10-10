@@ -54,6 +54,36 @@ export default function Home() {
 
         <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-2 lg:text-left">
           <Link
+            href="/active-liveness"
+            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          >
+            <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
+              Active Liveness <span>-&gt;</span>
+            </h2>
+            <p
+              className={`${inter.className} m-auto lg:m-0 max-w-[30ch] text-sm opacity-50`}
+            >
+              Sample demo to integrate active liveness detection using GLAIR Web
+              Components and GLAIR Vision NodeJS SDK.
+            </p>
+          </Link>
+
+          <Link
+            href="/active-liveness-sessions"
+            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+          >
+            <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
+              Active Liveness Sessions <span>-&gt;</span>
+            </h2>
+            <p
+              className={`${inter.className} m-auto lg:m-0 max-w-[30ch] text-sm opacity-50`}
+            >
+              Sample demo to integrate active liveness detection using GLAIR Web
+              Components and GLAIR Vision NodeJS SDK.
+            </p>
+          </Link>
+
+          <Link
             href="/passive-liveness"
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
           >
