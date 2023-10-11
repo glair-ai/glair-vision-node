@@ -1,8 +1,9 @@
 import { OCRRead } from './base';
 
-type BANK_STATEMENT_FIELDS = 'bank_name' | 'start_period' | 'end_period';
-
-type ACCOUNT_FIELDS =
+type BANK_STATEMENT_FIELDS =
+  | 'bank_name'
+  | 'start_period'
+  | 'end_period'
   | 'account_number'
   | 'account_name'
   | 'beginning_balance'
@@ -24,27 +25,22 @@ type TRANSACTION_FIELDS =
   | 'signed_amount';
 
 type BankStatementField = {
-  value: string;
+  value: string | number;
+  value_original: string;
   page_index: number;
   polygon: number[][];
-  confidence_mapping: number;
-  confidence_reading: number;
+  confidence: number;
+  confidence_text: number;
 };
 
 type BankStatementTransaction = {
   [key in TRANSACTION_FIELDS]: BankStatementField;
 };
 
-type BankStatementAccountDetails = {
-  [key in ACCOUNT_FIELDS]: BankStatementField;
-} & {
-  transactions: BankStatementTransaction[];
-};
-
 type BankStatementRead = {
   [key in BANK_STATEMENT_FIELDS]: BankStatementField;
 } & {
-  account_details: BankStatementAccountDetails[];
+  transactions: BankStatementTransaction[];
 };
 
 export type BankStatement = OCRRead<BankStatementRead>;
