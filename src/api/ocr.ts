@@ -16,6 +16,9 @@ import type { NPWP } from "../types/npwp";
 import type { GeneralDocument } from "../types/generalDocument";
 import { Invoice } from "../types/invoice";
 import { Receipt } from "../types/receipt";
+import { SingaporeNRIC } from "../types/singaporeNRIC";
+import { SingaporeFamilyPass } from "../types/singaporeFamilyPass";
+import { SingaporeWorkPermit } from "../types/singaporeWorkPermit";
 
 type OCRParam = { image: string; qualities_detector?: boolean };
 
@@ -76,6 +79,29 @@ export class Ocr {
   async receipt(param: OCRParam, newConfig?: Partial<Settings>) {
     logInfo("OCR - Receipt");
     return this.fetchOCR<Receipt>(param, "receipt", newConfig);
+  }
+
+  async singaporeNRIC(param: OCRParam, newConfig?: Partial<Settings>) {
+    logInfo("OCR - Singapore NRIC");
+    return this.fetchOCR<SingaporeNRIC>(param, "singapore-nric", newConfig);
+  }
+
+  async singaporeFamilyPass(param: OCRParam, newConfig?: Partial<Settings>) {
+    logInfo("OCR - Singapore Family Pass");
+    return this.fetchOCR<SingaporeFamilyPass>(
+      param,
+      "singapore-family-pass",
+      newConfig
+    );
+  }
+
+  async singaporeWorkPermit(param: OCRParam, newConfig?: Partial<Settings>) {
+    logInfo("OCR - Singapore Work Permit");
+    return this.fetchOCR<SingaporeWorkPermit>(
+      param,
+      "singapore-work-permit",
+      newConfig
+    );
   }
 
   private fetchOCR<T>(
